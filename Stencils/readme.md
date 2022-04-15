@@ -5,6 +5,7 @@ Two web pages here have hints about how stencil works.
 Most brilliant idea is that it can be used as 8 separate masks using masking, or as one continuous mask.
 
 [Operation Condition Table](https://htmlpreview.github.io/?https://github.com/EugeneDevastator/UnityCheats/blob/main/Stencils/OperationsTable.html)
+
 [Comparison innner workings](https://htmlpreview.github.io/?https://github.com/EugeneDevastator/UnityCheats/blob/main/Stencils/StencilComparison.html)
 
 ## Things to keep in mind in regards to ui:
