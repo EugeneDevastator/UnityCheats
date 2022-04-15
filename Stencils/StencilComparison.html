@@ -1,0 +1,90 @@
+<body>
+    <head>
+        <title>My HTML Document</title>
+        <style>
+            input[type=checkbox] { width: 30px; height: 30px; }
+            input[type=checkbox] { width: 20px; height: 20px; }
+        </style>
+
+    </head>
+    <script language="JavaScript">
+        function CalculateBitField(arrayId, outputId){
+          const values_in_elts = Array.from(document.getElementsByName(arrayId));
+          const values_in = values_in_elts.map(e => Number(e.checked));
+          const value_in_dec = values_in[0]*8 + values_in[1]*4 + values_in[2]*2 + values_in[3];
+          document.getElementById(outputId).textContent = value_in_dec;//value_in_dec;
+        }
+        function MaskOut(arrayInName,arrayOutName){
+            const read_elts = Array.from(document.getElementsByName(arrayInName));
+            const write_elts = Array.from(document.getElementsByName(arrayOutName));
+            const mask_elts = Array.from(document.getElementsByName('mask[]'));
+
+          for (let i = 0; i < mask_elts.length; i++) {
+              write_elts[i].checked =  mask_elts[i].checked && read_elts[i].checked;
+          }
+        }
+
+
+        function Recalculate(){
+         //   let d = new Date();
+         // alert("Today's date is " + 3);
+         console.log("CHUJ");
+         MaskOut("value_in[]","masked_in[]");
+         MaskOut("value_was[]","masked_was[]");
+         CalculateBitField("value_in[]","value_in_dec")
+         CalculateBitField("value_was[]","value_was_dec")
+         CalculateBitField("masked_in[]","masked_in_dec")
+         CalculateBitField("masked_was[]","masked_was_dec")
+            
+         const inVal = document.getElementById("masked_in_dec").textContent;
+         const wasVal = document.getElementById("masked_was_dec").textContent;
+         document.getElementById("result").textContent = inVal + ">" + wasVal + " == " + (Number(inVal)>Number(wasVal));
+        }
+        document.getElementById("btn_check").onclick = Recalculate;
+        
+    </script>
+
+    <p>Real stencil has 8 bits, in this example only 4 for simplicity.</p>
+    <p><b>Ref value</b> - value we check against and write in stencil</p>
+    <input type="checkbox" name="value_in[]" value="0"></input>
+    <input type="checkbox" name="value_in[]" value="0"></input>
+    <input type="checkbox" name="value_in[]" value="0"></input>
+    <input type="checkbox" name="value_in[]" value="0"></input>
+    <label>=</label><label id = "value_in_dec"></label>
+    
+    <p>Current stencil value</p>
+    <input type="checkbox" name="value_was[]" value="0"></input>
+    <input type="checkbox" name="value_was[]" value="0"></input>
+    <input type="checkbox" name="value_was[]" value="0"></input>
+    <input type="checkbox" name="value_was[]" value="0"></input>
+    <label>=</label><label id = "value_was_dec"></label>
+
+    <p>ReadMask</p>
+    <input type="checkbox" name="mask[]" checked></input>
+    <input type="checkbox" name="mask[]" checked></input>
+    <input type="checkbox" name="mask[]" checked></input>
+    <input type="checkbox" name="mask[]" checked></input>
+
+    <p>Masked write Value(ref)</p>
+    <input type="checkbox" name="masked_in[]" disabled value="0"></input>
+    <input type="checkbox" name="masked_in[]" disabled value="0"></input>
+    <input type="checkbox" name="masked_in[]" disabled value="0"></input>
+    <input type="checkbox" name="masked_in[]" disabled value="0"></input>
+    <label>=</label><label id = "masked_in_dec"></label>
+
+    <p>Masked ReadValue</p>
+    <input type="checkbox" name="masked_was[]" disabled value="0"></input>
+    <input type="checkbox" name="masked_was[]" disabled value="0"></input>
+    <input type="checkbox" name="masked_was[]" disabled value="0"></input>
+    <input type="checkbox" name="masked_was[]" disabled value="0"></input>
+    <label>=</label><label id = "masked_was_dec"></label>
+<br>
+<br>
+    <input id="mask_in_3" type="checkbox" value="0">Ztest passed?</input>
+<br>
+
+<br>
+    <button id="btn_check" onclick="Recalculate()">Check</button>
+    <p>Stencil test(greated): <label id="result">idk!</label></p>
+
+</body>
